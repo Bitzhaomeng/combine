@@ -19,6 +19,7 @@ signals:
     void response2(const QString &s);
     void timeout2();
 
+
 private:
     QString portName;
     QString request;

@@ -5,7 +5,7 @@ compass::compass(QObject *parent) : QObject(parent)
 {
     connect(&workthread, &compassThread::response, this, &compass::showResponse);
     connect(&workthread, &compassThread::error, this, &compass::processError);
-
+    connect(&workthread, &compassThread::timeout, this, &compass::processError);
 }
 
 void compass::read()
@@ -16,11 +16,6 @@ void compass::read()
     workthread.transaction("COM3",senddata);
 
 }
-
-//void compass::stop()
-//{
-//   time_clock->stop();
-//}
 
 void compass::StringToHex(QString str, QByteArray &senddata)
 {
@@ -100,7 +95,7 @@ void compass::showResponse(const QByteArray &s)
 
 void compass::processError(const QString &s)
 {
-    qDebug()<<"error";
+    qDebug()<<"compass error:"<<s;
 }
 
 

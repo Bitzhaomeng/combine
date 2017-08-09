@@ -30,14 +30,18 @@ SOURCES += \
     compass.cpp \
     compassthread.cpp \
     motor.cpp \
-    motorthread.cpp
+    motorthread.cpp \
+    adq214.cpp
 
 HEADERS += \
         mainwindow.h \
     compass.h \
     compassthread.h \
     motor.h \
-    motorthread.h
+    motorthread.h \
+    adq214.h
 
 FORMS += \
         mainwindow.ui
+win32: LIBS += -L$$quote(C:/Program Files/SP Devices/ADQAPI/) -lADQAPI
+INCLUDEPATH += $$quote(C:/Program Files/SP Devices/ADQAPI/)

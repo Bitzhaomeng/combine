@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "compass.h"
 #include "motor.h"
+#include "motorthread.h"
+#include "adq214.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,26 +21,31 @@ public:
 
 private slots:
 
-
     void on_readCompassButton_clicked();
 
-    void on_portOpenButton_clicked();
+    void on_startButton_clicked();
 
-    void on_motorPrepareButton_clicked();
-
-    void on_motorMoveButton_clicked();
-
-    void on_motorReadButton_clicked();
-
-    void on_RelativeMoveButton_clicked();
+    void checkMove();
 
 private:
     Ui::MainWindow *ui;
     compass Compass;
     void showCompassAngle(const double &s);
-    void showMotorAngle(const double &s);
+    void checkMotorAngle(const double &s);
+    void timeStart();
+    void getPosition();
+    void checkMotor();
+
     motor Motor;
-    void show2();
+    void readyToMove();
+    bool moveNorth,checkReady;
+    double headAngle,motorPX0;
+    QTimer *timeOclock;
+//    motorthread Motorthread;
+//    compassThread CompassThread;
+
+    ADQ214 capture;
+    int perTime=60;     //每次转动的角度，先假设为每60°采一组数
 };
 
 #endif // MAINWINDOW_H
